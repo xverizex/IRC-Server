@@ -218,7 +218,12 @@ void	Server::bindSocket()
 	const int trueFlag = 1;
 	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &trueFlag, sizeof(int)) < 0)
 	{
-		std::cout << "setsockopt failed" << std::endl;
+		std::cout << "setsockopt reuseaddr failed" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEPORT, &trueFlag, sizeof(int)) < 0)
+	{
+		std::cout << "setsockopt reuseport failed" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	sockaddr.sin_family = AF_INET;
